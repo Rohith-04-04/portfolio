@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" width="100%" height="100%">
+  <defs>
+    <linearGradient id="swGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="600" height="360" rx="8" fill="url(#swGrad)"/>
+  
+  <!-- Window Top Bar -->
+  <rect width="600" height="36" rx="8" fill="#334155"/>
+  <circle cx="20" cy="18" r="5" fill="#ef4444"/>
+  <circle cx="36" cy="18" r="5" fill="#f59e0b"/>
+  <circle cx="52" cy="18" r="5" fill="#10b981"/>
+  <text x="300" y="23" font-family="-apple-system, sans-serif" font-size="12" font-weight="600" fill="#94a3b8" text-anchor="middle">Swagger UI — Digital Wallet &amp; P2P Engine</text>
+
+  <!-- Endpoint 1: POST /api/transfers -->
+  <rect x="25" y="55" width="550" height="50" rx="6" fill="#1e3a5f" stroke="#0284c7" stroke-width="1"/>
+  <rect x="35" y="65" width="60" height="30" rx="4" fill="#0284c7"/>
+  <text x="65" y="85" font-family="monospace" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">POST</text>
+  <text x="110" y="85" font-family="monospace" font-size="13" font-weight="bold" fill="#e0f2fe">/api/v1/wallets/transfer</text>
+  <rect x="470" y="68" width="90" height="24" rx="4" fill="#0f172a"/>
+  <text x="515" y="84" font-family="monospace" font-size="11" fill="#38bdf8" text-anchor="middle">Idempotent</text>
+
+  <!-- Endpoint 2: GET /api/wallets/{id} -->
+  <rect x="25" y="115" width="550" height="50" rx="6" fill="#143e35" stroke="#059669" stroke-width="1"/>
+  <rect x="35" y="125" width="60" height="30" rx="4" fill="#059669"/>
+  <text x="65" y="145" font-family="monospace" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GET</text>
+  <text x="110" y="145" font-family="monospace" font-size="13" font-weight="bold" fill="#dcfce7">/api/v1/wallets/{walletId}/balance</text>
+  <text x="515" y="145" font-family="monospace" font-size="11" fill="#4ade80" text-anchor="middle">200 OK</text>
+
+  <!-- Endpoint 3: POST /api/wallets/deposit -->
+  <rect x="25" y="175" width="550" height="50" rx="6" fill="#1e3a5f" stroke="#0284c7" stroke-width="1"/>
+  <rect x="35" y="185" width="60" height="30" rx="4" fill="#0284c7"/>
+  <text x="65" y="205" font-family="monospace" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">POST</text>
+  <text x="110" y="205" font-family="monospace" font-size="13" font-weight="bold" fill="#e0f2fe">/api/v1/wallets/deposit</text>
+  <text x="515" y="205" font-family="monospace" font-size="11" fill="#38bdf8" text-anchor="middle">Pessimistic</text>
+
+  <!-- Code snippet container below -->
+  <rect x="25" y="235" width="550" height="105" rx="6" fill="#090d16" stroke="#334155" stroke-width="1"/>
+  <text x="40" y="260" font-family="monospace" font-size="11" fill="#94a3b8">// Concurrency-Safe Row Locking</text>
+  <text x="40" y="280" font-family="monospace" font-size="12" fill="#e2e8f0"><tspan fill="#f43f5e">@Lock</tspan>(LockModeType.<tspan fill="#38bdf8">PESSIMISTIC_WRITE</tspan>)</text>
+  <text x="40" y="300" font-family="monospace" font-size="12" fill="#e2e8f0">Optional&lt;Wallet&gt; <tspan fill="#60a5fa">findByIdForUpdate</tspan>(UUID id);</text>
+  <text x="40" y="325" font-family="monospace" font-size="11" fill="#10b981">✓ 12 Automated JUnit 5 Concurrency Tests Passed</text>
+</svg>

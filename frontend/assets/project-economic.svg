@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" width="600" height="360">
+  <defs>
+    <linearGradient id="tabGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="360" rx="8" fill="url(#tabGrad)"/>
+  
+  <!-- Header Bar -->
+  <rect width="600" height="36" rx="8" fill="#1e293b"/>
+  <circle cx="20" cy="18" r="5" fill="#ef4444"/>
+  <circle cx="36" cy="18" r="5" fill="#f59e0b"/>
+  <circle cx="52" cy="18" r="5" fill="#10b981"/>
+  <text x="300" y="23" font-family="-apple-system, sans-serif" font-size="12" font-weight="600" fill="#94a3b8" text-anchor="middle">Tableau Public - Economic Freedom Index Analytics</text>
+
+  <!-- Left Chart: Bar Chart of Freedom Pillars -->
+  <rect x="25" y="55" width="265" height="185" rx="6" fill="#111827" stroke="#374151" stroke-width="1"/>
+  <text x="40" y="78" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#f3f4f6">Global Freedom Pillars</text>
+  
+  <!-- Bars -->
+  <text x="40" y="105" font-family="monospace" font-size="10" fill="#9ca3af">Trade Freedom</text>
+  <rect x="135" y="95" width="135" height="12" rx="2" fill="#3b82f6"/>
+  
+  <text x="40" y="130" font-family="monospace" font-size="10" fill="#9ca3af">Property Rights</text>
+  <rect x="135" y="120" width="120" height="12" rx="2" fill="#6366f1"/>
+  
+  <text x="40" y="155" font-family="monospace" font-size="10" fill="#9ca3af">Judicial Effect.</text>
+  <rect x="135" y="145" width="105" height="12" rx="2" fill="#8b5cf6"/>
+  
+  <text x="40" y="180" font-family="monospace" font-size="10" fill="#9ca3af">Fiscal Health</text>
+  <rect x="135" y="170" width="130" height="12" rx="2" fill="#ec4899"/>
+  
+  <text x="40" y="205" font-family="monospace" font-size="10" fill="#9ca3af">Govt. Integrity</text>
+  <rect x="135" y="195" width="95" height="12" rx="2" fill="#f59e0b"/>
+
+  <!-- Right Chart: Scatter correlation -->
+  <rect x="310" y="55" width="265" height="185" rx="6" fill="#111827" stroke="#374151" stroke-width="1"/>
+  <text x="325" y="78" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#f3f4f6">Index Score vs. GDP per Capita</text>
+  <!-- Axes -->
+  <line x1="335" y1="210" x2="550" y2="210" stroke="#4b5563" stroke-width="1"/>
+  <line x1="335" y1="95" x2="335" y2="210" stroke="#4b5563" stroke-width="1"/>
+  <!-- Scatter dots -->
+  <circle cx="360" cy="190" r="4" fill="#38bdf8"/>
+  <circle cx="380" cy="180" r="5" fill="#38bdf8"/>
+  <circle cx="410" cy="165" r="4.5" fill="#38bdf8"/>
+  <circle cx="430" cy="155" r="6" fill="#10b981"/>
+  <circle cx="460" cy="140" r="5" fill="#10b981"/>
+  <circle cx="485" cy="120" r="5.5" fill="#10b981"/>
+  <circle cx="510" cy="110" r="7" fill="#f59e0b"/>
+  <circle cx="530" cy="105" r="6" fill="#f59e0b"/>
+  <!-- Trend line -->
+  <line x1="345" y1="200" x2="540" y2="100" stroke="#f43f5e" stroke-width="2" stroke-dasharray="4"/>
+
+  <!-- Footer Banner -->
+  <rect x="25" y="255" width="550" height="85" rx="6" fill="#1f2937" stroke="#374151" stroke-width="1"/>
+  <text x="40" y="280" font-family="-apple-system, sans-serif" font-size="12" font-weight="600" fill="#f9fafb">Python Data Extraction and Exploratory Analysis</text>
+  <text x="40" y="302" font-family="monospace" font-size="11" fill="#9ca3af">Pillars Analyzed: 12 | Countries Evaluated: 180+ | Tools: Python, Pandas, Tableau</text>
+  <text x="40" y="322" font-family="monospace" font-size="11" fill="#10b981">&#10003; Public Interactive Dashboard Live on Tableau Public</text>
+</svg>

@@ -1,0 +1,52 @@
+# ==============================================================================
+# Render Blueprint (Infrastructure-as-Code)
+# Deploys both Frontend Static Site and Spring Boot Backend Web Service on Render Free Tier
+# ==============================================================================
+
+services:
+  # ----------------------------------------------------------------------------
+  # 1. Spring Boot Backend Web Service (Java 17 / Docker)
+  # ----------------------------------------------------------------------------
+  - type: web
+    name: eli-rohith-portfolio-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    healthCheckPath: /api/contact/health
+    envVars:
+      - key: PORT
+        value: 8080
+      # Configure your free MySQL database URL (e.g. from TiDB Serverless or Aiven)
+      - key: SPRING_DATASOURCE_URL
+        sync: false
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false
+      # Gmail SMTP for free contact notifications
+      - key: SPRING_MAIL_HOST
+        value: smtp.gmail.com
+      - key: SPRING_MAIL_PORT
+        value: "587"
+      - key: SPRING_MAIL_USERNAME
+        sync: false
+      - key: SPRING_MAIL_PASSWORD
+        sync: false
+      - key: PORTFOLIO_MAIL_RECIPIENT
+        value: rohitheli4444@gmail.com
+      - key: PORTFOLIO_CORS_ALLOWED_ORIGINS
+        value: "*"
+
+  # ----------------------------------------------------------------------------
+  # 2. Frontend Static Site (HTML5 / CSS3 / Vanilla JavaScript)
+  # ----------------------------------------------------------------------------
+  - type: web
+    name: eli-rohith-portfolio
+    runtime: static
+    staticPublishPath: ./frontend
+    plan: free
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=3600
