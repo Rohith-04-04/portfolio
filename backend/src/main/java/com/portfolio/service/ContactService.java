@@ -52,4 +52,9 @@ public class ContactService {
 
         return ApiResponse.ok("Thank you! Your message has been received and saved successfully.");
     }
+
+    public java.util.Map<String, Object> runMailDiagnostic() {
+        return emailService.sendDiagnosticTest();
+    }
 }
+

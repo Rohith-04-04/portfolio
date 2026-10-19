@@ -75,7 +75,43 @@ public class EmailService {
             log.info("Successfully sent email notification for contact message ID: {}", message.getId());
             message.setEmailNotified(true);
         } catch (Exception e) {
-            log.warn("Failed to dispatch email notification for contact message ID {}: {}", message.getId(), e.getMessage());
+            log.error("Failed to dispatch email notification for contact message ID {}: {}", message.getId(), e.getMessage(), e);
         }
     }
+
+    /**
+     * Diagnostic test method returning execution status and detailed error messages if any.
+     */
+    public java.util.Map<String, Object> sendDiagnosticTest() {
+        java.util.Map<String, Object> result = new java.util.LinkedHashMap<>();
+        boolean configured = mailSenderFrom != null && !mailSenderFrom.isBlank();
+        result.put("usernameConfigured", configured);
+        result.put("sender", configured ? mailSenderFrom : "(not configured)");
+        result.put("recipient", recipientEmail);
+        result.put("mailSenderPresent", mailSender != null);
+
+        if (!configured || mailSender == null) {
+            result.put("status", "FAILED");
+            result.put("reason", "SMTP username is blank or not configured in environment variables. Check SPRING_MAIL_USERNAME in Render.");
+            return result;
+        }
+
+        try {
+            SimpleMailMessage mail = new SimpleMailMessage();
+            mail.setFrom(mailSenderFrom);
+            mail.setTo(recipientEmail);
+            mail.setSubject("[Portfolio Verification] Test Email from Render");
+            mail.setText("If you are reading this email, the Render email service is 100% active and configured correctly!\n\nSent to: " + recipientEmail);
+            mailSender.send(mail);
+            result.put("status", "SUCCESS");
+            result.put("message", "Email delivered to " + recipientEmail);
+        } catch (Exception e) {
+            result.put("status", "ERROR");
+            result.put("exceptionClass", e.getClass().getName());
+            result.put("errorMessage", e.getMessage());
+            log.error("Diagnostic email test failed", e);
+        }
+        return result;
+    }
 }
+

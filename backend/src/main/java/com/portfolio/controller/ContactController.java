@@ -53,6 +53,15 @@ public class ContactController {
     }
 
     /**
+     * Diagnostic endpoint to test email delivery directly and inspect live SMTP status.
+     */
+    @GetMapping("/test-mail")
+    public ResponseEntity<Map<String, Object>> testMail() {
+        return ResponseEntity.ok(contactService.runMailDiagnostic());
+    }
+
+
+    /**
      * Extracts client IP address taking reverse proxies (e.g. Render, Cloudflare, NGINX) into account.
      */
     private String extractClientIp(HttpServletRequest request) {
