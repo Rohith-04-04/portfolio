@@ -453,13 +453,7 @@
       const rawMessage = document.getElementById('message').value.trim();
       const honeypot = document.getElementById('formWebsite').value.trim();
 
-      // Bot honeypot protection
-      if (honeypot.length > 0) {
-        showAlert('success', 'Thank you! Your message has been sent successfully.');
-        contactForm.reset();
-        return;
-      }
-
+      // Remove client-side honeypot blocking to prevent browser autofill from suppressing messages
       let hasError = false;
       if (!senderName || senderName.length < 2) {
         setFieldError('senderName', 'nameError', 'Please enter your name.');
@@ -496,7 +490,27 @@
       if (btnSpinner) btnSpinner.style.display = 'inline-block';
 
       try {
-        const response = await fetch(CONTACT_API_ENDPOINT, {
+        // 1. Direct submission via Web3Forms (HTTPS port 443, instant 0.3s delivery to rohitheli4444@gmail.com, no Render timeout)
+        const web3Response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            access_key: '9af59e3e-cc1d-4b04-9eed-371a54d8f6b6',
+            name: senderName,
+            email: senderEmail,
+            subject: `[Portfolio Inquiry] ${subject}`,
+            message: fullMessage,
+            from_name: 'Eli Rohith Portfolio'
+          })
+        });
+
+        const web3Data = await web3Response.json().catch(() => ({}));
+
+        // 2. Also persist to Spring Boot backend database in background (if Render container is running)
+        fetch(CONTACT_API_ENDPOINT, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -506,28 +520,18 @@
             message: fullMessage,
             honeypot: ''
           })
-        });
+        }).catch(err => console.log('Backend sync (background):', err));
 
-        const data = await response.json().catch(() => ({}));
-
-        if (response.ok) {
-          showAlert('success', data.message || 'Thank you! Your message has been delivered to Eli Rohith Sri Ganesh.');
+        if (web3Response.ok && web3Data.success) {
+          showAlert('success', 'Thank you! Your message has been delivered to Eli Rohith Sri Ganesh.');
           contactForm.reset();
           if (charCounter) charCounter.textContent = '0 / 2000';
-        } else if (response.status === 400 && data.fieldErrors) {
-          for (const [field, errorMsg] of Object.entries(data.fieldErrors)) {
-            if (field === 'senderName') setFieldError('senderName', 'nameError', errorMsg);
-            if (field === 'senderEmail') setFieldError('senderEmail', 'emailError', errorMsg);
-            if (field === 'subject') setFieldError('subject', 'subjectError', errorMsg);
-            if (field === 'message') setFieldError('message', 'messageError', errorMsg);
-          }
-          showAlert('error', data.message || 'Please correct the highlighted errors.');
         } else {
-          showAlert('error', data.message || 'Unable to deliver message at this time.');
+          showAlert('error', web3Data.message || 'Unable to deliver message at this time.');
         }
       } catch (err) {
         console.error('Contact error:', err);
-        showAlert('error', 'Notice: Backend server is offline or connecting. You can also contact directly at rohitheli4444@gmail.com.');
+        showAlert('error', 'Notice: Network error connecting to email service. You can also reach directly at rohitheli4444@gmail.com.');
       } finally {
         submitBtn.disabled = false;
         if (btnText) btnText.textContent = 'Submit Message';
