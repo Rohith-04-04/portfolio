@@ -6,8 +6,8 @@
 (function () {
   'use strict';
 
-  // API Config
-  const API_BASE_URL = window.PORTFOLIO_API_URL || 'http://localhost:8080';
+  // API Config (Uses relative path when hosted on same Spring Boot server or custom override)
+  const API_BASE_URL = window.PORTFOLIO_API_URL || '';
   const CONTACT_API_ENDPOINT = `${API_BASE_URL}/api/contact`;
 
   // ============================================================================
